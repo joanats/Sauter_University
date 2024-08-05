@@ -1,15 +1,14 @@
 name: CI
 
-on: 
+on:
   push:
     branches: [main]
 
 jobs:
   CI:
-    runs-on: ubunty-latest
+    runs-on: ubuntu-latest  
 
-    steps: 
-
+    steps:
       - uses: actions/checkout@v4
 
       - name: Docker Login
@@ -18,14 +17,12 @@ jobs:
           username: ${{ secrets.DOCKER_JOANATS }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-       - name: Build and push Docker images
-         uses: docker/build-push-action@v6.5.0
-         with: 
-           context: .
-           fiel:  .
-           push: true
-           tags: |
-             joanats/sauteruniversity: v1
-             joanats/sauteruniversity: latest
-
-      
+      - name: Build and push Docker images  
+        uses: docker/build-push-action@v6.5.0
+        with:
+          context: .
+          file: .  
+          push: true
+          tags: |
+            joanats/sauteruniversity:v1
+            joanats/sauteruniversity:latest
